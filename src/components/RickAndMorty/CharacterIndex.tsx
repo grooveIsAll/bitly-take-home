@@ -3,6 +3,7 @@ import classNames from 'classnames'
 
 import Tile from '../shared/Tile/Tile'
 import Spinner from '../shared/Spinner/Spinner'
+import { formatCharacterData } from './helpers'
 import { fetchData } from '../../helpers'
 
 import styles from './CharacterIndex.module.scss'
@@ -19,7 +20,8 @@ const CharacterIndex: React.FunctionComponent = () => {
 
     fetchData(`https://rickandmortyapi.com/api/character/${favoriteCharactersIds}`)
       .then(data => {
-        setData(data)
+        const formattedData = data.map((character: any) => formatCharacterData(character))
+        setData(formattedData)
         setLoading(false)
       })
       .catch(error => {
@@ -34,7 +36,7 @@ const CharacterIndex: React.FunctionComponent = () => {
     <div className="page">
       <div className={styles.headerContainer}>
         <img className={styles.showLogo} src={showLogo} alt="showLogo" />
-        <p className={styles.subheader} role="textbox">
+        <p className={classNames("font-medium", styles.subheader)} role="textbox">
           Get some fun and interesting deets about your favorite interdimesional characters...
         </p>
       </div>
@@ -52,7 +54,7 @@ const CharacterIndex: React.FunctionComponent = () => {
                     <div className={styles.tileImgContainer}>
                       <img className={styles.tileImg} src={image} alt="" />
                     </div>
-                    <p className={styles.tileName}>{name}</p>
+                    <p className={classNames(styles.tileName, "font-medium")}>{name}</p>
                   </>
                 )
               }}
