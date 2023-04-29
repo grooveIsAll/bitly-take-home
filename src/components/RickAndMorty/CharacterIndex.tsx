@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import classNames from 'classnames'
 
+import Tile from '../shared/Tile/Tile'
+import Spinner from '../shared/Spinner/Spinner'
 import { fetchData } from '../../helpers'
 
 import styles from './CharacterIndex.module.scss'
@@ -11,24 +12,53 @@ export const favoriteCharactersIds = [47, 242, 252, 262, 306, 327, 353, 388, 636
 
 const CharacterIndex: React.FunctionComponent = () => {
   const [data, setData] = useState<any>([])
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+    setLoading(true)
+
     fetchData(`https://rickandmortyapi.com/api/character/${favoriteCharactersIds}`)
-      .then(data => setData(data))
+      .then(data => {
+        setData(data)
+        setLoading(false)
+      })
+      .catch(error => {
+        console.error(error)
+        setLoading(false)
+      })
   }, [])
 
-  console.log(data)
+  if (loading) return <Spinner />
 
   return (
     <div className="page">
-      {data.map((character: any, index: number) => (
-        <Link
-          to={`/rick-and-morty/${character.id}`}
-          key={index}
-        >
-          {character.name}
-        </Link>
-      ))}
+      <div className={styles.headerContainer}>
+        <img className={styles.showLogo} src={showLogo} alt="showLogo" />
+        <p className={styles.subheader} role="textbox">
+          Get some fun and interesting deets about your favorite interdimesional characters...
+        </p>
+      </div>
+
+      <div className={styles.grid}>
+        {data.map((character: any) => {
+          const { id, name, image } = character
+          return (
+            <Tile
+              key={id}
+              link={`/rick-and-morty/${id}`}
+              render={() => {
+                return (
+                  <>
+                    <div className={styles.tileImgContainer}>
+                      <img className={styles.tileImg} src={image} alt="" />
+                    </div>
+                    <p className={styles.tileName}>{name}</p>
+                  </>
+                )
+              }}
+            />
+        )})}
+      </div>
     </div>
   )
 }

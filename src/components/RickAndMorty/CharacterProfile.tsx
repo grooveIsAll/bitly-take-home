@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import classNames from "classnames";
 
+import Spinner from "../shared/Spinner/Spinner";
 import { fetchData } from "../../helpers";
 
 
@@ -26,6 +27,7 @@ const CharacterProfile: React.FunctionComponent = () => {
       })
   }, [])
 
+  if (loading) return <Spinner />
 
   return (
     <div className="page">
