@@ -1,6 +1,3 @@
-import { RawCharacter } from "./types";
-import { fetchData } from "../../helpers";
-
 export function characterDataURL(charactersArray: number[]): string {
   return `https://rickandmortyapi.com/api/character/${charactersArray}`;
 }

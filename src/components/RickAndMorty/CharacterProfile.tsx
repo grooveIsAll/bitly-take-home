@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import classNames from "classnames";
 
+import Nav from "../shared/Nav/Nav";
 import Spinner from "../shared/Spinner/Spinner";
 import { formatCharacterData, characterDataURL } from "./helpers";
 import { fetchData } from "../../helpers";
@@ -13,14 +14,14 @@ const CharacterProfile: React.FunctionComponent = () => {
   const [currentCharacter, setCurrentCharacter] = useState<Character>(null);
   const [loading, setLoading] = useState(false);
   const params = useParams();
-  const url = characterDataURL([Number(params.id)])
+  const url = characterDataURL([Number(params.id)]);
 
   useEffect(() => {
     setLoading(true);
 
     (async () => {
       try {
-        const data = await fetchData(url)
+        const data = await fetchData(url);
         const formattedCharacter = formatCharacterData(data);
         setCurrentCharacter(formattedCharacter);
         setLoading(false);
@@ -28,20 +29,28 @@ const CharacterProfile: React.FunctionComponent = () => {
         console.error(error);
         setLoading(false);
       }
-    })()
+    })();
   }, []);
 
   if (loading) return <Spinner className={styles.spinner} />;
 
   return (
-    <div className="page">
-      <div className={styles.profileContainer}>
-        <h1 className={classNames(styles.profileHeader, "font-large")} role="heading">Character Stats</h1>
-        <div className={styles.cardContainer}>
-          {currentCharacter && <CharacterCard character={currentCharacter} />}
+    <>
+      <Nav />
+      <div className="page">
+        <div className={styles.profileContainer}>
+          <h1
+            className={classNames(styles.profileHeader, "font-large")}
+            role="heading"
+          >
+            Character Stats
+          </h1>
+          <div className={styles.cardContainer}>
+            {currentCharacter && <CharacterCard character={currentCharacter} />}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

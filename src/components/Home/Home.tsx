@@ -1,23 +1,27 @@
 import React from 'react';
+import { useNavigate } from 'react-router';
+
+import Button from '../shared/Button/Button';
+
 import logo from './../../logo.svg';
-import './Home.module.scss';
+import styles from './Home.module.scss';
 
 const Home = () => {
+  const navigate = useNavigate()
+
   return (
-    <div className="Home">
-      <header className="Home-header">
-        <img src={logo} className="Home-logo" alt="logo" />
-        <p>
-          Hello World!
-        </p>
-        <a
-          className="Home-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className={styles.home}>
+      <header className={styles.homeHeader}>
+        <img src={logo} className={styles.homeLogo} alt="logo" />
+        <h1 className='font-xlarge'>
+          Hello Multiverse World!
+        </h1>
+
+        <Button
+          onClick={() => navigate("/rick-and-morty")}
+          label='Learn about Rick and Morty'
+          className={styles.btn}
+        />
       </header>
     </div>
   );
