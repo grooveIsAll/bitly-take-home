@@ -5,6 +5,7 @@ import Tile from '../shared/Tile/Tile'
 import Spinner from '../shared/Spinner/Spinner'
 import { formatCharacterData } from './helpers'
 import { fetchData } from '../../helpers'
+import { Characters, RawCharacter, FormattedCharacter } from './types'
 
 import styles from './CharacterIndex.module.scss'
 
@@ -12,7 +13,7 @@ const showLogo = "https://media.cdn.adultswim.com/uploads/20210428/21428161947-r
 export const favoriteCharactersIds = [47, 242, 252, 262, 306, 327, 353, 388, 636];
 
 const CharacterIndex: React.FunctionComponent = () => {
-  const [data, setData] = useState<any>([])
+  const [data, setData] = useState<Characters>([])
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -20,7 +21,7 @@ const CharacterIndex: React.FunctionComponent = () => {
 
     fetchData(`https://rickandmortyapi.com/api/character/${favoriteCharactersIds}`)
       .then(data => {
-        const formattedData = data.map((character: any) => formatCharacterData(character))
+        const formattedData = data.map((character: RawCharacter) => formatCharacterData(character))
         setData(formattedData)
         setLoading(false)
       })
@@ -42,7 +43,7 @@ const CharacterIndex: React.FunctionComponent = () => {
       </div>
 
       <div className={styles.grid}>
-        {data.map((character: any) => {
+        {data.map((character: FormattedCharacter) => {
           const { id, name, image } = character
           return (
             <Tile

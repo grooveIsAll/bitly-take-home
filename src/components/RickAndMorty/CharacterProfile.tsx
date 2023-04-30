@@ -5,11 +5,12 @@ import classNames from "classnames";
 import Spinner from "../shared/Spinner/Spinner";
 import { formatCharacterData } from "./helpers";
 import { fetchData } from "../../helpers";
+import { FormattedCharacter, Character } from "./types";
 
 import styles from "./CharacterProfile.module.scss";
 
 const CharacterProfile: React.FunctionComponent = () => {
-  const [currentCharacter, setCurrentCharacter] = useState<any>(null)
+  const [currentCharacter, setCurrentCharacter] = useState<Character>(null)
   const [loading, setLoading] = useState(false)
   const params = useParams();
 
@@ -40,7 +41,7 @@ const CharacterProfile: React.FunctionComponent = () => {
 
 export default CharacterProfile;
 
-const CharacterCard = ({ character }: { character: any }) => {
+const CharacterCard = ({ character }: { character: FormattedCharacter }) => {
   const { name, status, species, gender, image, origin, episodeCount } =
     character;
   return (
