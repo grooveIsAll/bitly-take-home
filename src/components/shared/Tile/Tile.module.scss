@@ -1,12 +1,11 @@
 .tile {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   transition: transform .2s;
 }
 
 .linkHover {
   &:hover {
     transform: scale(1.025);
+    opacity: .9;
   }
 }

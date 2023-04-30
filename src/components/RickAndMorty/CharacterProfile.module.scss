@@ -1,9 +1,21 @@
 @import './../../variables.scss';
 
+.profileContainer {
+  margin: 0 auto;
+  max-width: 700px;
+  background-color: $faded-yellow;
+  padding: 40px 30px 60px;
+  border-radius: 8px;
+}
+
+.profileHeader {
+  color: $peach;
+}
+
 .cardContainer {
   display: flex;
   justify-content: center;
-  padding-top: 100px;
+  padding-top: 30px;
   margin: 0 auto;
 }
 
@@ -11,23 +23,23 @@
   display: flex;
   justify-content: space-between;
   width: fit-content;
-  background-color: #62a4ab;
+  background-color: $light-blue;
   border-radius: 8px;
   padding: 30px 26px 20px;
-  gap: 35px;
+  gap: 20px;
 }
 
 .cardImg {
-  max-width: 150px;
+  max-width: 100px;
   border-radius: 50%;
 }
 
-.statsBlock {
+.cardStats {
   justify-content: center;
   align-items: flex-start;
   display: flex;
   flex-direction: column;
-  color: black;
+  color: $almost-black;
 
   p {
     padding-bottom: 10px;
@@ -36,11 +48,30 @@
 
 .cardName {
   text-align: center;
-  color: #f9bf1e;
+  color: $light-yellow;
   max-width: 250px;
 }
 
+.cardStatLabel {
+  color: $pinkage;
+  opacity: .7;
+  font-weight: 700;
+}
 
 .spinner {
   composes: spinner from './CharacterIndex.module.scss'
+}
+
+@media (min-width: $size-tablet) {
+  .cardContainer {
+    padding-top: 50px;
+  }
+
+  .card {
+    gap: 35px;
+  }
+
+  .cardImg {
+    max-width: 150px;
+  }
 }

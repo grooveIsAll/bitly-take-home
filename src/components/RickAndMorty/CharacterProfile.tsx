@@ -10,32 +10,33 @@ import { FormattedCharacter, Character } from "./types";
 import styles from "./CharacterProfile.module.scss";
 
 const CharacterProfile: React.FunctionComponent = () => {
-  const [currentCharacter, setCurrentCharacter] = useState<Character>(null)
-  const [loading, setLoading] = useState(false)
+  const [currentCharacter, setCurrentCharacter] = useState<Character>(null);
+  const [loading, setLoading] = useState(false);
   const params = useParams();
 
-
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     fetchData(`https://rickandmortyapi.com/api/character/${Number(params.id)}`)
-      .then(data => {
-        const formattedCharacter = formatCharacterData(data)
-        setCurrentCharacter(formattedCharacter)
-        setLoading(false)
+      .then((data) => {
+        const formattedCharacter = formatCharacterData(data);
+        setCurrentCharacter(formattedCharacter);
+        setLoading(false);
       })
-      .catch(error => {
-        console.error(error)
-        setLoading(false)
-      })
-  }, [])
+      .catch((error) => {
+        console.error(error);
+        setLoading(false);
+      });
+  }, []);
 
-  if (loading) return <Spinner className={styles.spinner} />
+  if (loading) return <Spinner className={styles.spinner} />;
 
   return (
     <div className="page">
-      <div className={styles.cardContainer}>
-        <h1>Character Stats</h1>
-        {currentCharacter && <CharacterCard character={currentCharacter} />}
+      <div className={styles.profileContainer}>
+        <h1 className={classNames(styles.profileHeader, "font-large")}>Character Stats</h1>
+        <div className={styles.cardContainer}>
+          {currentCharacter && <CharacterCard character={currentCharacter} />}
+        </div>
       </div>
     </div>
   );
@@ -52,12 +53,23 @@ const CharacterCard = ({ character }: { character: FormattedCharacter }) => {
         <img className={styles.cardImg} src={image} alt="" />
         <h3 className={classNames(styles.cardName, "font-medium")}>{name}</h3>
       </div>
-      <div className={classNames(styles.statsBlock, "font-small")}>
-        <p>Status: {status}</p>
-        <p>Species: {species}</p>
-        <p>Gender: {gender}</p>
-        <p>Origin: {origin}</p>
-        <p>Episode Count: {episodeCount}</p>
+      <div className={classNames(styles.cardStats, "font-small")}>
+        <p>
+          <span className={styles.cardStatLabel}>Status:</span> {status}
+        </p>
+        <p>
+          <span className={styles.cardStatLabel}>Species:</span> {species}
+        </p>
+        <p>
+          <span className={styles.cardStatLabel}>Gender:</span> {gender}
+        </p>
+        <p>
+          <span className={styles.cardStatLabel}>Origin:</span> {origin}
+        </p>
+        <p>
+          <span className={styles.cardStatLabel}>Episode Count:</span>{" "}
+          {episodeCount}
+        </p>
       </div>
     </div>
   );

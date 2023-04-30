@@ -6,25 +6,22 @@ import styles from './Tile.module.scss'
 const Tile = ({
   render,
   link,
-  onClick
-}:{
-  link?: string;
-  render: () => React.ReactNode;
-  onClick?: () => void
-}) => {
+  onClick,
+  className
+}: TileProps) => {
   return (
     <>
       {link ? (
         <Link
           to={link}
-          className={classNames(styles.tile, styles.linkHover)}
+          className={classNames(styles.tile, styles.linkHover, className)}
           onClick={onClick}
         >
           {render()}
         </Link>
       ) : (
         <div
-          className={styles.tile}
+          className={classNames(styles.tile, className)}
           onClick={onClick}
         >
           {render()}
@@ -35,3 +32,10 @@ const Tile = ({
 }
 
 export default Tile
+
+interface TileProps {
+  link?: string;
+  render: () => React.ReactNode;
+  onClick?: () => void;
+  className?: string
+}

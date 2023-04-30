@@ -3,6 +3,7 @@ import classNames from 'classnames'
 
 import Tile from '../shared/Tile/Tile'
 import Spinner from '../shared/Spinner/Spinner'
+import Button from '../shared/Button/Button'
 import { FormattedCharacter } from './types'
 import { CharacterContext } from './CharacterContextProvider'
 
@@ -21,14 +22,15 @@ const CharacterIndex: React.FunctionComponent = () => {
       <div className={styles.headerContainer}>
         <img className={styles.showLogo} src={showLogo} alt="showLogo" />
         <p className={classNames("font-medium", styles.subheader)} role="textbox">
-          Get some fun and interesting deets about your favorite interdimesional characters...
+          Get the deets on your favorite interdimesional characters...
         </p>
       </div>
-      <button
-        onClick={getRandomShowCharacters}
-      >
-        Get random characters
-      </button>
+      <div className={styles.btnContainer}>
+        <Button
+          onClick={getRandomShowCharacters}
+          label="Get random characters"
+        />
+      </div>
       <div className={styles.grid}>
         {characters.map((character: FormattedCharacter) => {
           const { id, name, image } = character
@@ -36,6 +38,7 @@ const CharacterIndex: React.FunctionComponent = () => {
             <Tile
               key={id}
               link={`/rick-and-morty/${id}`}
+              className={styles.tileContainer}
               render={() => {
                 return (
                   <>
