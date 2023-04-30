@@ -1,4 +1,5 @@
 import { useNavigate, Link } from 'react-router-dom'
+import classNames from 'classnames'
 
 import Button from '../Button/Button'
 
@@ -21,7 +22,7 @@ const Nav = ({hideBack}: {hideBack?: boolean}) => {
 
       <Link
         to="/"
-        className="font-small"
+        className={classNames(styles.homeBtn, "font-small")}
       >
         Home
       </Link>

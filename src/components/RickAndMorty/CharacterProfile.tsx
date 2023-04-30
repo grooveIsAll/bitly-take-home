@@ -10,13 +10,17 @@ import { FormattedCharacter, Character } from "./types";
 
 import styles from "./CharacterProfile.module.scss";
 
-const CharacterProfile: React.FunctionComponent = () => {
+function CharacterProfile({
+  hideLoading = false
+}: {
+  hideLoading?: boolean
+}) {
   const [currentCharacter, setCurrentCharacter] = useState<Character>(null);
   const [loading, setLoading] = useState(false);
   const params = useParams();
-  const url = characterDataURL([Number(params.id)]);
-
+  
   useEffect(() => {
+    const url = characterDataURL([Number(params.id)]);
     setLoading(true);
 
     (async () => {
@@ -32,7 +36,7 @@ const CharacterProfile: React.FunctionComponent = () => {
     })();
   }, []);
 
-  if (loading) return <Spinner className={styles.spinner} />;
+  if (loading && !hideLoading) return <Spinner className={styles.spinner} />;
 
   return (
     <>
@@ -41,7 +45,7 @@ const CharacterProfile: React.FunctionComponent = () => {
         <div className={styles.profileContainer}>
           <h1
             className={classNames(styles.profileHeader, "font-large")}
-            role="heading"
+            data-testid="heading"
           >
             Character Stats
           </h1>
@@ -52,7 +56,7 @@ const CharacterProfile: React.FunctionComponent = () => {
       </div>
     </>
   );
-};
+}
 
 export default CharacterProfile;
 

@@ -12,7 +12,7 @@ import styles from './CharacterIndex.module.scss'
 
 const showLogo = "https://media.cdn.adultswim.com/uploads/20210428/21428161947-rick-and-morty-logo-png.png"
 
-const CharacterIndex: React.FunctionComponent = () => {
+const CharacterIndex = () => {
   const context = useContext(CharacterContext)
   const { characters, getRandomShowCharacters, loading } = context
 

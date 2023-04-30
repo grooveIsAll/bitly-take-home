@@ -2,7 +2,7 @@ import classNames from "classnames";
 
 import styles from "./Spinner.module.scss";
 
-const Spinner: React.FC<SpinnerProps> = ({
+const Spinner = ({
   className,
   style,
 }: SpinnerProps) => {

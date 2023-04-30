@@ -9,7 +9,23 @@ import {
   formatCharacterData
 } from "./helpers";
 
-export const CharacterContext = createContext<any>(null);
+export const defaultState = {
+  characters: [{
+    id: 1,
+    name: '',
+    image: '',
+    status: '',
+    species: '',
+    gender: '',
+    origin: '',
+    episodeCount: 1,
+    episodes: [""]
+  }],
+  getRandomShowCharacters: () => {},
+  loading: false,
+}
+
+export const CharacterContext = createContext<typeof defaultState>(null!);
 
 const CharacterContextProvider = ({
   children,

@@ -1,12 +1,11 @@
-import React from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 import Button from '../shared/Button/Button';
 
 import logo from './../../logo.svg';
 import styles from './Home.module.scss';
 
-const Home = () => {
+function Home() {
   const navigate = useNavigate()
 
   return (
