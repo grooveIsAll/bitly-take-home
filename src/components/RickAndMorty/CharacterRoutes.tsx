@@ -1,8 +1,8 @@
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes } from "react-router-dom";
 
-import CharacterContextProvider from './CharacterContextProvider'
-import CharacterIndex from './CharacterIndex'
-import CharacterProfile from './CharacterProfile'
+import CharacterContextProvider from "./CharacterContextProvider";
+import CharacterIndex from "./CharacterIndex";
+import CharacterProfile from "./CharacterProfile";
 
 const CharacterRoutes = () => {
   return (
@@ -12,7 +12,7 @@ const CharacterRoutes = () => {
         <Route path="/:id" element={<CharacterProfile />} />
       </Routes>
     </CharacterContextProvider>
-  )
-}
+  );
+};
 
-export default CharacterRoutes
+export default CharacterRoutes;

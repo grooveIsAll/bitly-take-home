@@ -2,10 +2,7 @@ import classNames from "classnames";
 
 import styles from "./Spinner.module.scss";
 
-const Spinner = ({
-  className,
-  style,
-}: SpinnerProps) => {
+const Spinner = ({ className, style }: SpinnerProps) => {
   const size = 80;
 
   return (

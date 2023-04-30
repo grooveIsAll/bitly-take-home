@@ -10,17 +10,17 @@ import { FormattedCharacter, Character } from "./types";
 
 import styles from "./CharacterProfile.module.scss";
 
-function CharacterProfile({
+const CharacterProfile = ({
   hideLoading = false
 }: {
   hideLoading?: boolean
-}) {
+}) => {
   const [currentCharacter, setCurrentCharacter] = useState<Character>(null);
   const [loading, setLoading] = useState(false);
   const params = useParams();
   
   useEffect(() => {
-    const url = characterDataURL([Number(params.id)]);
+    const url = characterDataURL(params.id!);
     setLoading(true);
 
     (async () => {
@@ -50,7 +50,7 @@ function CharacterProfile({
             Character Stats
           </h1>
           <div className={styles.cardContainer}>
-            {currentCharacter && <CharacterCard character={currentCharacter} />}
+            {currentCharacter ? <CharacterCard character={currentCharacter} /> : null}
           </div>
         </div>
       </div>

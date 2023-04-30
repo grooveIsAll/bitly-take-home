@@ -1,86 +1,56 @@
-import { createContext, useState, useEffect, useCallback } from "react";
+import { createContext, useState, useCallback } from "react";
 
-import { getUniqRandomNumArray, fetchData } from "../../helpers";
-import { Characters, RawCharacter } from "./types";
+import useCharacters from "./useCharacters";
+import { getUniqRandomNumArray } from "../../helpers";
 import {
   characterDataURL,
   favoriteCharactersIds,
   MAX_CHARACTERS,
-  formatCharacterData
 } from "./helpers";
 
-export const defaultState = {
-  characters: [{
-    id: 1,
-    name: '',
-    image: '',
-    status: '',
-    species: '',
-    gender: '',
-    origin: '',
-    episodeCount: 1,
-    episodes: [""]
-  }],
-  getRandomShowCharacters: () => {},
+export const defaultCharacterContext = {
+  characterData: [
+    {
+      id: 1,
+      name: "",
+      image: "",
+      status: "",
+      species: "",
+      gender: "",
+      origin: "",
+      episodeCount: 1,
+      episodes: [""],
+    },
+  ],
+  getRandomCharacters: () => {},
   loading: false,
-}
+};
 
-export const CharacterContext = createContext<typeof defaultState>(null!);
+export const CharacterContext = createContext<typeof defaultCharacterContext>(null!);
+const initUrl: string = characterDataURL(favoriteCharactersIds);
 
 const CharacterContextProvider = ({
   children,
 }: {
   children: React.ReactNode;
 }) => {
-  const [characters, setCharacters] = useState<Characters>([]);
-  const [loading, setLoading] = useState(false);
+  const [query, setQuery] = useState(initUrl)
+  const { characterData, loading } = useCharacters(query)
 
-  useEffect(() => {
-    (async () => {
-      setLoading(true)
-      const favCharactersUrl: string = characterDataURL(favoriteCharactersIds);
-      try {
-        const data = await fetchData(favCharactersUrl)
-        const formattedData = data.map((character: RawCharacter) =>
-          formatCharacterData(character)
-        );
-        setCharacters(formattedData);
-        setLoading(false)
-
-      } catch (error) {
-        console.error(error)
-        setLoading(false)
-      }
-    })()
-  }, []);
-
-  const getRandomShowCharacters = useCallback(async () => {
+  const getRandomCharacters = useCallback(async () => {
     const randomCharacterIds: number[] = getUniqRandomNumArray(
       9,
       MAX_CHARACTERS
     );
-
     const randomCharactersUrl: string = characterDataURL(randomCharacterIds);
-
-    try {
-      const data = await fetchData(randomCharactersUrl)
-      const formattedData = data.map((character: RawCharacter) =>
-        formatCharacterData(character)
-      );
-      setCharacters(formattedData);
-      setLoading(false)
-
-    } catch (error) {
-      console.error(error)
-      setLoading(false)
-    }
-  }, []);
+    setQuery(randomCharactersUrl)
+  }, [])
 
   return (
     <CharacterContext.Provider
       value={{
-        characters,
-        getRandomShowCharacters,
+        characterData,
+        getRandomCharacters,
         loading,
       }}
     >
