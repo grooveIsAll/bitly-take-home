@@ -4,6 +4,5 @@ import CharacterProfile from './CharacterProfile';
 
 test('displays the header copy', () => {
   render(<CharacterProfile />);
-  const headerElement = screen.getByText(/Character Stats/i);
-  expect(headerElement).toBeInTheDocument();
+  expect(screen.getByRole('heading')).toHaveTextContent("Character Stats")
 });

@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import classNames from "classnames";
 
 import Spinner from "../shared/Spinner/Spinner";
-import { formatCharacterData } from "./helpers";
+import { formatCharacterData, characterDataURL } from "./helpers";
 import { fetchData } from "../../helpers";
 import { FormattedCharacter, Character } from "./types";
 
@@ -13,19 +13,22 @@ const CharacterProfile: React.FunctionComponent = () => {
   const [currentCharacter, setCurrentCharacter] = useState<Character>(null);
   const [loading, setLoading] = useState(false);
   const params = useParams();
+  const url = characterDataURL([Number(params.id)])
 
   useEffect(() => {
     setLoading(true);
-    fetchData(`https://rickandmortyapi.com/api/character/${Number(params.id)}`)
-      .then((data) => {
+
+    (async () => {
+      try {
+        const data = await fetchData(url)
         const formattedCharacter = formatCharacterData(data);
         setCurrentCharacter(formattedCharacter);
         setLoading(false);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error(error);
         setLoading(false);
-      });
+      }
+    })()
   }, []);
 
   if (loading) return <Spinner className={styles.spinner} />;
@@ -33,7 +36,7 @@ const CharacterProfile: React.FunctionComponent = () => {
   return (
     <div className="page">
       <div className={styles.profileContainer}>
-        <h1 className={classNames(styles.profileHeader, "font-large")}>Character Stats</h1>
+        <h1 className={classNames(styles.profileHeader, "font-large")} role="heading">Character Stats</h1>
         <div className={styles.cardContainer}>
           {currentCharacter && <CharacterCard character={currentCharacter} />}
         </div>

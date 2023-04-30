@@ -20,7 +20,7 @@ const CharacterIndex: React.FunctionComponent = () => {
   return (
     <div className="page">
       <div className={styles.headerContainer}>
-        <img className={styles.showLogo} src={showLogo} alt="showLogo" />
+        <img className={styles.showLogo} src={showLogo} alt="logo" />
         <p className={classNames("font-medium", styles.subheader)} role="textbox">
           Get the deets on your favorite interdimesional characters...
         </p>

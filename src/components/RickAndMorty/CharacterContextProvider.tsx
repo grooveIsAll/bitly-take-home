@@ -1,12 +1,12 @@
 import { createContext, useState, useEffect, useCallback } from "react";
 
-import { getUniqRandomNumArray } from "../../helpers";
-import { Characters } from "./types";
+import { getUniqRandomNumArray, fetchData } from "../../helpers";
+import { Characters, RawCharacter } from "./types";
 import {
-  getCharacterData,
   characterDataURL,
   favoriteCharactersIds,
   MAX_CHARACTERS,
+  formatCharacterData
 } from "./helpers";
 
 export const CharacterContext = createContext<any>(null);
@@ -20,18 +20,44 @@ const CharacterContextProvider = ({
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const favCharactersUrl: string = characterDataURL(favoriteCharactersIds);
-    getCharacterData(favCharactersUrl, setCharacters, setLoading);
+    (async () => {
+      setLoading(true)
+      const favCharactersUrl: string = characterDataURL(favoriteCharactersIds);
+      try {
+        const data = await fetchData(favCharactersUrl)
+        const formattedData = data.map((character: RawCharacter) =>
+          formatCharacterData(character)
+        );
+        setCharacters(formattedData);
+        setLoading(false)
+
+      } catch (error) {
+        console.error(error)
+        setLoading(false)
+      }
+    })()
   }, []);
 
-  const getRandomShowCharacters = useCallback(() => {
+  const getRandomShowCharacters = useCallback(async () => {
     const randomCharacterIds: number[] = getUniqRandomNumArray(
       9,
       MAX_CHARACTERS
     );
 
     const randomCharactersUrl: string = characterDataURL(randomCharacterIds);
-    getCharacterData(randomCharactersUrl, setCharacters, setLoading);
+
+    try {
+      const data = await fetchData(randomCharactersUrl)
+      const formattedData = data.map((character: RawCharacter) =>
+        formatCharacterData(character)
+      );
+      setCharacters(formattedData);
+      setLoading(false)
+
+    } catch (error) {
+      console.error(error)
+      setLoading(false)
+    }
   }, []);
 
   return (
