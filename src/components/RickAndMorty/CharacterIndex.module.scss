@@ -1,0 +1,89 @@
+@import './../../variables.scss';
+
+.showLogo {
+  max-width: 325px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 40px;
+  padding-bottom: 50px;
+}
+
+.headerContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.subheader {
+  max-width: 600px;
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform .2s;
+
+  &:hover {
+    transform: scale(1.025);
+  }
+}
+
+.tileImgContainer {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tileImg {
+  max-width: 200px;
+  width: 100%;
+  border-radius: 50%;
+}
+
+.tileName, .cardName {
+  text-align: center;
+}
+
+.tileName {
+  color: #92c5dd;
+}
+
+.spinner {
+  margin: 0 auto;
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 42%;
+}
+
+@media (min-width: $sizeTablet) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .headerContainer {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .tileImg {
+    max-width: 225px;
+  }
+}
+
+@media (min-width: $sizeDesktop) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+    padding-bottom: 100px;
+  }
+
+  .showLogo {
+    max-width: 450px;
+  }
+}

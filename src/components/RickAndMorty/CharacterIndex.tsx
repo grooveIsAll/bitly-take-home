@@ -1,37 +1,20 @@
-import { useState, useEffect } from 'react'
+import { useContext } from 'react'
 import classNames from 'classnames'
 
 import Tile from '../shared/Tile/Tile'
 import Spinner from '../shared/Spinner/Spinner'
-import { formatCharacterData } from './helpers'
-import { fetchData } from '../../helpers'
-import { Characters, RawCharacter, FormattedCharacter } from './types'
+import { FormattedCharacter } from './types'
+import { CharacterContext } from './CharacterContextProvider'
 
 import styles from './CharacterIndex.module.scss'
 
 const showLogo = "https://media.cdn.adultswim.com/uploads/20210428/21428161947-rick-and-morty-logo-png.png"
-export const favoriteCharactersIds = [47, 242, 252, 262, 306, 327, 353, 388, 636];
 
 const CharacterIndex: React.FunctionComponent = () => {
-  const [data, setData] = useState<Characters>([])
-  const [loading, setLoading] = useState(false)
+  const context = useContext(CharacterContext)
+  const { characters, getRandomShowCharacters, loading } = context
 
-  useEffect(() => {
-    setLoading(true)
-
-    fetchData(`https://rickandmortyapi.com/api/character/${favoriteCharactersIds}`)
-      .then(data => {
-        const formattedData = data.map((character: RawCharacter) => formatCharacterData(character))
-        setData(formattedData)
-        setLoading(false)
-      })
-      .catch(error => {
-        console.error(error)
-        setLoading(false)
-      })
-  }, [])
-
-  if (loading) return <Spinner />
+  if (loading) return <Spinner className={styles.spinner} />
 
   return (
     <div className="page">
@@ -41,9 +24,13 @@ const CharacterIndex: React.FunctionComponent = () => {
           Get some fun and interesting deets about your favorite interdimesional characters...
         </p>
       </div>
-
+      <button
+        onClick={getRandomShowCharacters}
+      >
+        Get random characters
+      </button>
       <div className={styles.grid}>
-        {data.map((character: FormattedCharacter) => {
+        {characters.map((character: FormattedCharacter) => {
           const { id, name, image } = character
           return (
             <Tile

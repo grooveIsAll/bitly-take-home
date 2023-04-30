@@ -29,12 +29,14 @@ const CharacterProfile: React.FunctionComponent = () => {
       })
   }, [])
 
-  if (loading) return <Spinner />
+  if (loading) return <Spinner className={styles.spinner} />
 
   return (
     <div className="page">
-      <h1>Character Stats</h1>
-      {currentCharacter && <CharacterCard character={currentCharacter} />}
+      <div className={styles.cardContainer}>
+        <h1>Character Stats</h1>
+        {currentCharacter && <CharacterCard character={currentCharacter} />}
+      </div>
     </div>
   );
 };
@@ -48,9 +50,9 @@ const CharacterCard = ({ character }: { character: FormattedCharacter }) => {
     <div className={styles.card}>
       <div>
         <img className={styles.cardImg} src={image} alt="" />
-        <h3 className={styles.cardName}>{name}</h3>
+        <h3 className={classNames(styles.cardName, "font-medium")}>{name}</h3>
       </div>
-      <div className={styles.statsBlock}>
+      <div className={classNames(styles.statsBlock, "font-small")}>
         <p>Status: {status}</p>
         <p>Species: {species}</p>
         <p>Gender: {gender}</p>
