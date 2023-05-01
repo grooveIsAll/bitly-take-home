@@ -1,14 +1,17 @@
 import { useState, useEffect } from "react";
 
 import { fetchData } from "../../helpers";
-import { RawCharacter } from "./types";
+import { RawCharacter, FormattedCharacter  } from "./types";
 import { formatCharacterData } from "./helpers";
 import { defaultCharacterContext } from "./CharacterContextProvider";
 
 // CUSTOM HOOK:
 // TAKES A URL AND RETURNS CHARACTER DATA + LOADING BOOLEAN
 
-const useCharacterData = (url: string) => {
+const useCharacterData = (url: string): {
+  characterData: FormattedCharacter[],
+  loading: boolean
+} => {
   const [characterData, setCharacterData] = useState(
     defaultCharacterContext.characterData
   );
