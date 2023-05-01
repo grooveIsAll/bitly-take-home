@@ -16,12 +16,4 @@ describe("CharacterIndex component", () => {
     const imgElement = screen.getByAltText(/logo/i);
     expect(imgElement).toBeInTheDocument();
   });
-
-  test("page to rerender on button click", () => {
-    render(<ComponentWithContextStub component={<CharacterIndex />} />);
-    const randomCharactersButton = screen.getByText("Get random characters");
-
-    // fireEvent.click(randomCharactersButton)
-    // console.log(props)
-  });
 });
