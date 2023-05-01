@@ -9,6 +9,10 @@ In the project directory, you can run:
 ### `nvm use`
 To use node v16.6.1
 
+### `npm install`
+
+To install dependencies
+
 ### `npm start`
 
 Runs the app in the development mode.\

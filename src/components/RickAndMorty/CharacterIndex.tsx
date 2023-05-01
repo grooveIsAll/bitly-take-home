@@ -15,7 +15,9 @@ const showLogo =
 
 const CharacterIndex = () => {
   const context = useContext(CharacterContext);
-  const { characterData, getRandomCharacters, loading } = context;
+  const { characterData, getRandomCharacters, loading, error } = context;
+
+  // TODO: IF ERROR, SHOW ERROR PAGE AND REDIRECT HOME
 
   if (loading) return <Spinner className={styles.spinner} />;
 

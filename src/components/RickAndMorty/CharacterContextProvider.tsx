@@ -24,9 +24,12 @@ export const defaultCharacterContext = {
   ],
   getRandomCharacters: () => {},
   loading: false,
+  error: "",
 };
 
-export const CharacterContext = createContext<typeof defaultCharacterContext>(null!);
+export const CharacterContext = createContext<typeof defaultCharacterContext>(
+  null!
+);
 const initUrl: string = characterDataURL(favoriteCharactersIds);
 
 const CharacterContextProvider = ({
@@ -34,8 +37,8 @@ const CharacterContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [query, setQuery] = useState(initUrl)
-  const { characterData, loading } = useCharacters(query)
+  const [query, setQuery] = useState(initUrl);
+  const { characterData, loading, error } = useCharacters(query);
 
   const getRandomCharacters = useCallback(async () => {
     const randomCharacterIds: number[] = getUniqRandomNumArray(
@@ -43,8 +46,8 @@ const CharacterContextProvider = ({
       MAX_CHARACTERS
     );
     const randomCharactersUrl: string = characterDataURL(randomCharacterIds);
-    setQuery(randomCharactersUrl)
-  }, [])
+    setQuery(randomCharactersUrl);
+  }, []);
 
   return (
     <CharacterContext.Provider
@@ -52,6 +55,7 @@ const CharacterContextProvider = ({
         characterData,
         getRandomCharacters,
         loading,
+        error,
       }}
     >
       {children}

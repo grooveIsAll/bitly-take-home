@@ -11,14 +11,17 @@ import { FormattedCharacter, Character } from "./types";
 import styles from "./CharacterProfile.module.scss";
 
 const CharacterProfile = ({
-  hideLoading = false
+  hideLoading = false,
 }: {
-  hideLoading?: boolean
+  hideLoading?: boolean;
 }) => {
   const [currentCharacter, setCurrentCharacter] = useState<Character>(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<any>(null);
   const params = useParams();
-  
+
+  // TODO: IF ERROR, SHOW ERROR PAGE AND REDIRECT HOME
+
   useEffect(() => {
     const url = characterDataURL(params.id!);
     setLoading(true);
@@ -31,6 +34,7 @@ const CharacterProfile = ({
         setLoading(false);
       } catch (error) {
         console.error(error);
+        setError(error);
         setLoading(false);
       }
     })();
@@ -50,13 +54,15 @@ const CharacterProfile = ({
             Character Stats
           </h1>
           <div className={styles.cardContainer}>
-            {currentCharacter ? <CharacterCard character={currentCharacter} /> : null}
+            {currentCharacter ? (
+              <CharacterCard character={currentCharacter} />
+            ) : null}
           </div>
         </div>
       </div>
     </>
   );
-}
+};
 
 export default CharacterProfile;
 

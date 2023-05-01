@@ -1,21 +1,27 @@
 import { useState, useEffect } from "react";
 
 import { fetchData } from "../../helpers";
-import { RawCharacter, FormattedCharacter  } from "./types";
+import { RawCharacter, FormattedCharacter } from "./types";
 import { formatCharacterData } from "./helpers";
 import { defaultCharacterContext } from "./CharacterContextProvider";
 
 // CUSTOM HOOK:
 // TAKES A URL AND RETURNS CHARACTER DATA + LOADING BOOLEAN
 
-const useCharacterData = (url: string): {
-  characterData: FormattedCharacter[],
-  loading: boolean
+const useCharacterData = (
+  url: string
+): {
+  characterData: FormattedCharacter[];
+  loading: boolean;
+  error: string;
 } => {
   const [characterData, setCharacterData] = useState(
     defaultCharacterContext.characterData
   );
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<any>(null);
+
+  // TODO: DEFFINE TYPING FOR ERROR, ADD ERROR HANDLING
 
   useEffect(() => {
     (async () => {
@@ -31,6 +37,7 @@ const useCharacterData = (url: string): {
         setLoading(false);
       } catch (error) {
         console.error(error);
+        setError(error);
         setLoading(false);
       }
     })();
@@ -39,6 +46,7 @@ const useCharacterData = (url: string): {
   return {
     characterData,
     loading,
+    error,
   };
 };
 
