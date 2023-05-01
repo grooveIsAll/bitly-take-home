@@ -1,0 +1,78 @@
+@import './../../variables.scss';
+
+.profileContainer {
+  margin: 0 auto;
+  max-width: 700px;
+  background-color: $faded-yellow;
+  padding: 40px 30px 60px;
+  border-radius: 8px;
+}
+
+.profileHeader {
+  color: $peach;
+}
+
+.cardContainer {
+  display: flex;
+  justify-content: center;
+  padding-top: 30px;
+  margin: 0 auto;
+}
+
+.card {
+  display: flex;
+  justify-content: space-between;
+  width: fit-content;
+  background-color: $light-blue;
+  border-radius: 8px;
+  padding: 20px 15px 10px;
+  gap: 20px;
+}
+
+.cardImg {
+  max-width: 100px;
+  border-radius: 50%;
+}
+
+.cardStats {
+  justify-content: center;
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  color: $almost-black;
+
+  p {
+    padding-bottom: 10px;
+  }
+}
+
+.cardName {
+  text-align: center;
+  color: $light-yellow;
+  max-width: 250px;
+}
+
+.cardStatLabel {
+  color: $pinkage;
+  opacity: .7;
+  font-weight: 700;
+}
+
+.spinner {
+  composes: spinner from './CharacterIndex.module.scss'
+}
+
+@media (min-width: $size-tablet) {
+  .cardContainer {
+    padding-top: 50px;
+  }
+
+  .card {
+    padding: 30px 26px 20px;
+    gap: 35px;
+  }
+
+  .cardImg {
+    max-width: 150px;
+  }
+}

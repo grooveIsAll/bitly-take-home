@@ -1,0 +1,99 @@
+@import './../../variables.scss';
+
+.showLogo {
+  max-width: 325px;
+}
+
+.headerContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: flex-start;
+}
+
+.subheader {
+  max-width: 600px;
+  color: $dark-blue;
+}
+
+.btnContainer {
+  padding: 20px 0 30px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 40px;
+  padding-bottom: 50px;
+}
+
+.tileContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform .2s;
+  background-color: $peach;
+  border-radius: 8px;
+  padding: 20px 20px 15px;
+}
+
+.tileImgContainer {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tileImg {
+  max-width: 180px;
+  width: 100%;
+  border-radius: 50%;
+}
+
+.tileName, .cardName {
+  padding-top: 10px;
+  text-align: center;
+}
+
+.tileName {
+  color: $baby-blue;
+}
+
+.spinner {
+  margin: 0 auto;
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 42%;
+}
+
+@media (min-width: $size-tablet) {
+  .btnContainer {
+    padding: 10px 0 40px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .headerContainer {
+    flex-direction: row;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .tileImg {
+    max-width: 215px;
+  }
+}
+
+@media (min-width: $size-desktop) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+    padding-bottom: 100px;
+  }
+
+  .showLogo {
+    max-width: 450px;
+  }
+}

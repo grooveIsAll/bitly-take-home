@@ -1,0 +1,37 @@
+@import './../../../variables';
+
+.navBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: $size-desktop-lg;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.navContainer {
+  .backButton {
+    padding: 5px 20px;
+    background: $turq;
+    opacity: .9;
+
+    &:hover {
+      background: $turq;
+      opacity: .7;
+    }
+  }
+}
+
+.homeBtn {
+  color: $peach;
+  
+  &:hover {
+    color: $light-blue;
+  }
+}
+
+@media (min-width: $size-tablet) {
+  .navBar {
+    padding: 30px 50px;
+  }
+}

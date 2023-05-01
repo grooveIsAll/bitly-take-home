@@ -1,0 +1,11 @@
+.tile {
+  display: flex;
+  transition: transform .2s;
+}
+
+.linkHover {
+  &:hover {
+    transform: scale(1.025);
+    opacity: .9;
+  }
+}
